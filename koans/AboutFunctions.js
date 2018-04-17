@@ -22,9 +22,9 @@ describe("About Functions", function() {
       return message;
     }
     
-    expect(getMessage()).toB('Outer');
+    expect(getMessage()).toBe('Outer');
     expect(overrideMessage()).toBe('Inner');
-    expect(message).toBe('Inner');
+    expect(message).toBe('Outer');
   });
 
   it("should have lexical scoping", function() {
@@ -61,7 +61,7 @@ describe("About Functions", function() {
       return firstArg;
     }
     
-    expect(returnFirstArg("first", "second", "third")).toBe(['first']);
+    expect(returnFirstArg("first", "second", "third")).toBe('first');
     
     function returnSecondArg(firstArg, secondArg) {
       return secondArg;
@@ -78,7 +78,7 @@ describe("About Functions", function() {
       return argsArray.join(",");
     }
     
-    expect(returnAllArgs("first", "second", "third")).toBe('first', 'second', 'third');
+    expect(returnAllArgs("first", "second", "third")).toBe('first,second,third');
   });
 
   it("should pass functions as values", function() {
@@ -106,8 +106,11 @@ describe("About Functions", function() {
       // An internal comment
       return a * b;
     };
-    expect(multiply.toString()).toBe('function(a, b) {\n
-          // An internal comment\n
-	   return a * b;\n }');
+    expect(multiply.toString()).toBe("function (a, b) {\n" +
+		        "      // An internal comment\n" +
+		        "      return a * b;\n" +
+			        "    }");
   });    
 });
+
+
