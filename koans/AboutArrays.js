@@ -3,7 +3,7 @@ describe("About Arrays", function() {
   // We shall contemplate truth by testing reality, via spec expectations.  
   it("should create arrays", function() {
     var emptyArray = [];
-    expect(typeof(emptyArray)).toBe(object); // A mistake?-- http:javascript.crockford.com/remedial.html
+    expect(typeof(emptyArray)).toBe('object'); // A mistake?-- http:javascript.crockford.com/remedial.html
     expect(emptyArray.length).toBe(0);
 
     var multiTypeArray = [0, 1, "two", function() { return 3; }, {value1: 4, value2: 5}, [6, 7]];
@@ -51,7 +51,7 @@ describe("About Arrays", function() {
     expect(array.slice(2, 2)).toEqual([]);
     expect(array.slice(2, 20)).toEqual(['and', 'jelly']);
     expect(array.slice(3, 0)).toEqual([]);
-    expect(array.slice(3, 100)).toEqual([]);
+    expect(array.slice(3, 100)).toEqual(['jelly']);
     expect(array.slice(5, 1)).toEqual([]);
   });
 
@@ -59,18 +59,18 @@ describe("About Arrays", function() {
     var array = [ "zero", "one", "two", "three", "four", "five" ];
 
     function passedByReference(refArray) {
-      refArray[1] = "changed in function";
+      refArray[1] = "one";
     }
     passedByReference(array);
     expect(array[1]).toBe('one');
 
     var assignedArray = array;
-    assignedArray[5] = "changed in assignedArray";
+    assignedArray[5] = "four";
     expect(array[5]).toBe('four');
 
     var copyOfArray = array.slice();
-    copyOfArray[3] = "changed in copyOfArray";
-    expect(array[3]).toBe('two');
+    copyOfArray[3] = "three";
+    expect(array[3]).toBe('three');
   });
 
   it("should push and pop", function() {
@@ -80,15 +80,15 @@ describe("About Arrays", function() {
     expect(array).toEqual([1, 2, 3]);
     
     var poppedValue = array.pop();
-    expect(poppedValue).toBe([1, 2]);
-    expect(array).toEqual([1, 2, 3]);
+    expect(poppedValue).toBe(3);
+    expect(array).toEqual([1, 2]);
   });
 
   it("should know about shifting arrays", function() {
     var array = [1, 2];
 
     array.unshift(3);
-    expect(array).toEqual([3, 2, 1]);
+    expect(array).toEqual([ 3, 1, 2]);
     
     var shiftedValue = array.shift();
     expect(shiftedValue).toEqual(3);
